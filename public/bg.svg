@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="2400" viewBox="0 0 1080 2400">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7d9d3"></stop>
+      <stop offset="0.22" stop-color="#ffffff"></stop>
+      <stop offset="0.60" stop-color="#ffffff"></stop>
+      <stop offset="1" stop-color="#dff1fb"></stop>
+    </linearGradient>
+
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.6"></feGaussianBlur>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="2400" fill="url(#g)"></rect>
+
+  <!-- nuvens cor (bege rosado) -->
+  <g fill="#efd6ce" opacity="0.9" filter="url(#soft)">
+    <!-- topo esquerda (grande) -->
+    <path d="M0,290 C40,250 100,250 140,275 C165,230 240,220 280,265 C325,240 390,250 415,290 L415,360 L0,360 Z"></path>
+    <path d="M0,220 C25,195 70,195 95,210 C110,185 155,180 175,205 C205,185 245,190 260,220 L260,270 L0,270 Z"></path>
+
+    <!-- topo direita (média) -->
+    <path d="M760,240 C790,210 840,210 870,232 C890,200 940,195 970,220 C1000,205 1045,210 1065,240 L1065,290 L760,290 Z"></path>
+
+    <!-- nuvens pequenas topo -->
+    <path d="M520,160 C535,145 560,145 575,156 C585,140 610,138 625,150 C642,142 662,145 672,160 L672,185 L520,185 Z" opacity="0.75"></path>
+    <path d="M250,130 C262,120 282,120 294,128 C302,116 320,115 332,124 C346,118 362,120 370,130 L370,150 L250,150 Z" opacity="0.65"></path>
+    <path d="M900,120 C912,110 932,110 944,118 C952,106 970,105 982,114 C996,108 1012,110 1020,120 L1020,140 L900,140 Z" opacity="0.65"></path>
+
+    <!-- meio (pequenas) -->
+    <path d="M60,980 C75,965 100,965 115,976 C125,960 150,958 165,970 C182,962 202,965 212,980 L212,1005 L60,1005 Z" opacity="0.35"></path>
+    <path d="M860,920 C875,905 900,905 915,916 C925,900 950,898 965,910 C982,902 1002,905 1012,920 L1012,945 L860,945 Z" opacity="0.35"></path>
+    <path d="M490,1080 C505,1065 530,1065 545,1076 C555,1060 580,1058 595,1070 C612,1062 632,1065 642,1080 L642,1105 L490,1105 Z" opacity="0.28"></path>
+
+    <!-- base esquerda (grande) -->
+    <path d="M0,2060 C55,2005 150,2000 210,2038 C240,1980 340,1968 405,2025 C470,1988 565,2000 605,2060 L605,2160 L0,2160 Z"></path>
+    <!-- base direita (média) -->
+    <path d="M640,2120 C680,2080 750,2080 790,2106 C820,2060 900,2055 940,2088 C985,2068 1045,2075 1080,2120 L1080,2185 L640,2185 Z"></path>
+    <!-- base pequenas -->
+    <path d="M330,2250 C348,2232 378,2232 396,2245 C410,2224 440,2222 458,2236 C478,2226 504,2230 516,2250 L516,2280 L330,2280 Z" opacity="0.7"></path>
+    <path d="M820,2280 C836,2264 862,2264 878,2276 C890,2258 915,2256 930,2268 C948,2260 970,2264 980,2280 L980,2306 L820,2306 Z" opacity="0.65"></path>
+  </g>
+</svg>
