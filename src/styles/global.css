@@ -742,3 +742,17 @@ button { font: inherit; }
     background: rgba(0,0,0,0.14);
   }
 }
+.giftFixedNote{
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(0,0,0,0.07);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;           /* mais forte */
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(0,0,0,0.62);
+  text-align: center;
+  letter-spacing: 0.2px;
+}

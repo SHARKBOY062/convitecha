@@ -3,6 +3,9 @@ import ultra from '../assets/ultra.jpeg'
 
 const SHEETDB_URL = 'https://sheetdb.io/api/v1/4y83tp53vaebv'
 
+const OBS_FIXA =
+  'Para quem quiser nos presentear, com qualquer mimo para o bebê será recebido com muito amor.'
+
 function Counter({ label, value, setValue }) {
   function dec() {
     setValue((v) => Math.max(0, v - 1))
@@ -73,7 +76,7 @@ export default function Home() {
       criancas,
       fralda_marca: presenteMarca,
       fralda_tamanho: presenteTamanho,
-      observacao: String(form.get('msg') || '').trim(),
+      observacao: OBS_FIXA, // ✅ fixa e enviada para a planilha
       data: new Date().toLocaleString('pt-BR'),
     }
 
@@ -269,15 +272,10 @@ export default function Home() {
                   <div className="pixHint"></div>
                 </div>
 
-                <label className="field">
-                  <span className="label">Observação:</span>
-                  <textarea
-                    className="input textarea"
-                    name="msg"
-                    placeholder="Para quem quiser nos presentear, com qualquer mimo para o bebê será recebido com muito amor 💙💗"
-                    disabled={saving}
-                  />
-                </label>
+                {/* ✅ mensagem fixa (sem textarea) */}
+                <div className="giftFixedNote" aria-label="Observação">
+                  {OBS_FIXA}
+                </div>
 
                 <button className="modalBtn" type="submit" disabled={saving}>
                   {saving ? 'Enviando...' : 'Enviar confirmação'}
