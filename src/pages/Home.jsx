@@ -46,7 +46,7 @@ export default function Home() {
   const [presenteMarca, setPresenteMarca] = useState('Pampers')
   const [presenteTamanho, setPresenteTamanho] = useState('M')
 
-  const pixKey = 'f6917757-1ed2-4dac-a514-ded3ed8ced89'
+  const pixKey = 'helenoliveirasg@icloud.com'
 
   const mapsUrl = useMemo(() => {
     const address = 'Rua T-29, no Setor Bueno, Goiânia - GO, CEP 74210-050'
