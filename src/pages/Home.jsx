@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
 import ultra from '../assets/ultra.jpeg'
 
+const SHEETDB_URL = 'https://sheetdb.io/api/v1/4y83tp53vaebv'
+
 function Counter({ label, value, setValue }) {
   function dec() {
     setValue((v) => Math.max(0, v - 1))
@@ -33,6 +35,7 @@ function Counter({ label, value, setValue }) {
 export default function Home() {
   const [open, setOpen] = useState(false)
   const [sent, setSent] = useState(false)
+  const [saving, setSaving] = useState(false)
 
   const [adultos, setAdultos] = useState(1)
   const [criancas, setCriancas] = useState(0)
@@ -53,12 +56,55 @@ export default function Home() {
   }
 
   function onClose() {
+    if (saving) return
     setOpen(false)
   }
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault()
-    setSent(true)
+    if (saving) return
+
+    const form = new FormData(e.currentTarget)
+
+    const payload = {
+      nome: String(form.get('nome') || '').trim(),
+      whatsapp: String(form.get('whats') || '').trim(),
+      adultos,
+      criancas,
+      fralda_marca: presenteMarca,
+      fralda_tamanho: presenteTamanho,
+      observacao: String(form.get('msg') || '').trim(),
+      data: new Date().toLocaleString('pt-BR'),
+    }
+
+    if (!payload.nome || !payload.whatsapp) {
+      alert('Preencha seu nome e WhatsApp 😊')
+      return
+    }
+
+    try {
+      setSaving(true)
+
+      const res = await fetch(SHEETDB_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: [payload] }),
+      })
+
+      if (!res.ok) throw new Error('Falha ao salvar no SheetDB')
+
+      setSent(true)
+      e.currentTarget.reset()
+      setAdultos(1)
+      setCriancas(0)
+      setPresenteMarca('Pampers')
+      setPresenteTamanho('M')
+    } catch (err) {
+      console.error(err)
+      alert('Não consegui salvar agora 😕 Tente novamente.')
+    } finally {
+      setSaving(false)
+    }
   }
 
   async function copyPix() {
@@ -85,7 +131,6 @@ export default function Home() {
           Confirmar presença
         </button>
 
-        {/* ✅ FOTO (30% menor) */}
         <div className="ultraFrame ultraFrame--sm textIn textIn--5" aria-label="Ultrassom">
           <div className="ultraInner">
             <img className="ultraImg" src={ultra} alt="Ultrassom do bebê" />
@@ -121,7 +166,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ✅ FRASE logo abaixo das infos */}
         <p className="punctualityNote">
           Para melhor aproveitarmos as entradas e o jantar, contamos com sua pontualidade.
         </p>
@@ -137,7 +181,7 @@ export default function Home() {
           >
             <div className="modalHeader">
               <div className="modalTitle">Confirmar presença</div>
-              <button className="modalClose" onClick={onClose} aria-label="Fechar">
+              <button className="modalClose" onClick={onClose} aria-label="Fechar" disabled={saving}>
                 ×
               </button>
             </div>
@@ -151,21 +195,24 @@ export default function Home() {
 
                 <label className="field">
                   <span className="label">Seu nome</span>
-                  <input className="input" name="nome" placeholder="Ex: Maria Clara" required />
+                  <input className="input" name="nome" placeholder="Ex: Maria Clara" required disabled={saving} />
                 </label>
 
                 <label className="field">
                   <span className="label">WhatsApp</span>
-                  <input className="input" name="whats" placeholder="Ex: (62) 99999-9999" required />
+                  <input
+                    className="input"
+                    name="whats"
+                    placeholder="Ex: (62) 99999-9999"
+                    required
+                    disabled={saving}
+                  />
                 </label>
 
                 <div className="counterGrid">
                   <Counter label="Adultos" value={adultos} setValue={setAdultos} />
                   <Counter label="Crianças" value={criancas} setValue={setCriancas} />
                 </div>
-
-                <input type="hidden" name="adultos" value={adultos} />
-                <input type="hidden" name="criancas" value={criancas} />
 
                 <div className="giftBox">
                   <div className="giftTitle">Sugestão de presente</div>
@@ -179,6 +226,7 @@ export default function Home() {
                           value={presenteMarca}
                           onChange={(e) => setPresenteMarca(e.target.value)}
                           name="fralda_marca"
+                          disabled={saving}
                         >
                           <option value="Pampers">Pampers</option>
                           <option value="Huggies">Huggies</option>
@@ -195,6 +243,7 @@ export default function Home() {
                           value={presenteTamanho}
                           onChange={(e) => setPresenteTamanho(e.target.value)}
                           name="fralda_tamanho"
+                          disabled={saving}
                         >
                           <option value="P">P</option>
                           <option value="M">M</option>
@@ -212,7 +261,7 @@ export default function Home() {
 
                   <div className="pixRow">
                     <input className="input pixInput" value={pixKey} readOnly />
-                    <button type="button" className="pixCopy" onClick={copyPix}>
+                    <button type="button" className="pixCopy" onClick={copyPix} disabled={saving}>
                       Copiar
                     </button>
                   </div>
@@ -226,11 +275,12 @@ export default function Home() {
                     className="input textarea"
                     name="msg"
                     placeholder="Para quem quiser nos presentear, com qualquer mimo para o bebê será recebido com muito amor 💙💗"
+                    disabled={saving}
                   />
                 </label>
 
-                <button className="modalBtn" type="submit">
-                  Enviar confirmação
+                <button className="modalBtn" type="submit" disabled={saving}>
+                  {saving ? 'Enviando...' : 'Enviar confirmação'}
                 </button>
 
                 <div className="modalHint">
