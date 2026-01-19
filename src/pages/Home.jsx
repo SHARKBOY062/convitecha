@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import ultra from '../assets/ultra.jpeg'
 
 function Counter({ label, value, setValue }) {
   function dec() {
@@ -84,7 +85,14 @@ export default function Home() {
           Confirmar presença
         </button>
 
-        <div className="details textIn textIn--5">
+        {/* ✅ FOTO (30% menor) */}
+        <div className="ultraFrame ultraFrame--sm textIn textIn--5" aria-label="Ultrassom">
+          <div className="ultraInner">
+            <img className="ultraImg" src={ultra} alt="Ultrassom do bebê" />
+          </div>
+        </div>
+
+        <div className="details">
           <div className="col">
             <div className="top">FEVEREIRO</div>
             <div className="bottom">
@@ -98,7 +106,7 @@ export default function Home() {
 
           <div className="col">
             <div className="top">A PARTIR</div>
-            <div className="bottom">DAS 12H.</div>
+            <div className="bottom">ÀS 19HRS.</div>
           </div>
 
           <div className="vline" />
@@ -112,6 +120,11 @@ export default function Home() {
             </a>
           </div>
         </div>
+
+        {/* ✅ FRASE logo abaixo das infos */}
+        <p className="punctualityNote">
+          Para melhor aproveitarmos as entradas e o jantar, contamos com sua pontualidade.
+        </p>
       </div>
 
       {open && (
@@ -160,8 +173,6 @@ export default function Home() {
                   <div className="giftRow">
                     <label className="field" style={{ margin: 0 }}>
                       <span className="label">Fralda</span>
-
-                      {/* ✅ select estilizado */}
                       <div className="selectWrap">
                         <select
                           className="input selectInput"
@@ -178,8 +189,6 @@ export default function Home() {
 
                     <label className="field" style={{ margin: 0 }}>
                       <span className="label">Tamanho</span>
-
-                      {/* ✅ select estilizado */}
                       <div className="selectWrap">
                         <select
                           className="input selectInput"
@@ -212,8 +221,12 @@ export default function Home() {
                 </div>
 
                 <label className="field">
-                  <span className="label">Mensagem (opcional)</span>
-                  <textarea className="input textarea" name="msg" placeholder="Deixe um recadinho fofo 💙💗" />
+                  <span className="label">Observação:</span>
+                  <textarea
+                    className="input textarea"
+                    name="msg"
+                    placeholder="Para quem quiser nos presentear, com qualquer mimo para o bebê será recebido com muito amor 💙💗"
+                  />
                 </label>
 
                 <button className="modalBtn" type="submit">

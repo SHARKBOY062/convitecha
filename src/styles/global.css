@@ -556,3 +556,189 @@ button { font: inherit; }
   .pixRow { grid-template-columns: 1fr; }
   .pixCopy { width: 100%; }
 }
+/* ===========================
+   MODAL RESPONSIVO (MOBILE FIRST)
+   =========================== */
+
+/* garante que overlay use a área visível real do celular */
+.modalOverlay {
+  padding: 14px;
+  align-items: center;
+}
+
+/* o card não pode ultrapassar a tela */
+.modalCard {
+  width: min(92vw, 420px);
+  max-height: min(86vh, 640px);        /* ✅ limita altura */
+  display: flex;                       /* ✅ vira layout flex */
+  flex-direction: column;
+}
+
+/* header fixo no topo do card */
+.modalHeader {
+  flex: 0 0 auto;
+}
+
+/* form vira área rolável */
+.modalForm {
+  flex: 1 1 auto;
+  overflow-y: auto;                    /* ✅ scroll interno */
+  -webkit-overflow-scrolling: touch;   /* ✅ iOS smooth */
+  padding: 14px;
+  padding-bottom: 18px;
+  scrollbar-gutter: stable;            /* ✅ evita “pular” layout */
+}
+
+/* sucesso também rola se precisar */
+.modalSuccess {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* diminui um pouco o “peso” em telas pequenas */
+@media (max-width: 420px) {
+  .modalOverlay { padding: 12px; }
+
+  .modalCard {
+    width: 100%;
+    max-height: 88vh;
+    border-radius: 20px;
+  }
+
+  .modalForm { padding: 12px; gap: 10px; }
+
+  .input {
+    padding: 11px 12px;
+    border-radius: 16px;
+    font-size: 14px;
+  }
+
+  .textarea { min-height: 78px; }
+
+  .pixRow {
+    grid-template-columns: 1fr;        /* ✅ pix quebra pra baixo */
+  }
+
+  .pixCopy {
+    width: 100%;
+    height: 44px;
+  }
+
+  .giftRow {
+    grid-template-columns: 1fr;        /* ✅ fralda/tamanho quebra */
+  }
+
+  .counterGrid {
+    grid-template-columns: 1fr;        /* ✅ counters quebram */
+  }
+}
+
+/* celulares bem baixos (ex: landscape) */
+@media (max-height: 700px) {
+  .modalCard { max-height: 92vh; }
+}
+
+/* evita zoom do iOS em input (mantendo 16px no campo) */
+@media (max-width: 420px) {
+  input, select, textarea { font-size: 16px; }
+}
+/* ===== Foto ultrassom (moldura chique) ===== */
+.ultraFrame{
+  width: min(100%, 360px);
+  margin-top: 18px;
+  border-radius: 22px;
+  padding: 10px;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.10);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.ultraInner{
+  border-radius: 18px;
+  padding: 8px;
+  background: linear-gradient(135deg, rgba(233,169,186,0.25), rgba(139,188,217,0.25));
+  border: 1px solid rgba(255,255,255,0.65);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+}
+
+.ultraImg{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.14);
+}
+
+/* deixa o espaçamento entre foto e detalhes bem “print” */
+.details{
+  margin-top: 20px !important;
+}
+
+/* ===== Frase do card Mensagem ===== */
+.msgNote{
+  margin: 8px 0 10px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.70);
+  border: 1px solid rgba(0,0,0,0.07);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(0,0,0,0.55);
+  letter-spacing: 0.2px;
+}
+/* Foto 30% menor (mantém o estilo chique) */
+.ultraFrame--sm{
+  width: min(100%, 252px); /* 360px -> ~252px (aprox -30%) */
+}
+.punctualityNote{
+  margin: 14px 0 0;
+  width: min(100%, 360px);
+  text-align: center;
+
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  line-height: 1.65;
+
+  color: rgba(0,0,0,0.46);
+  letter-spacing: 0.9px;
+
+  /* ✅ sutil: nada de caixa */
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+
+  /* ✅ detalhe elegante */
+  position: relative;
+}
+
+.punctualityNote::before{
+  content: "";
+  display: block;
+  width: 56px;
+  height: 1px;
+  margin: 0 auto 10px;
+  background: rgba(0,0,0,0.16);
+}
+
+/* mobile: mantém delicado e sem quebrar feio */
+@media (max-width: 420px){
+  .punctualityNote{
+    width: min(100%, 340px);
+    font-size: 10.5px;
+    line-height: 1.6;
+    letter-spacing: 0.8px;
+  }
+  .punctualityNote::before{
+    width: 50px;
+    margin-bottom: 9px;
+    background: rgba(0,0,0,0.14);
+  }
+}
